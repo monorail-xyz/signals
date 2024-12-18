@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Monorail Signals",
+    "version": "0.1",
+    "description": "Interprets Monorail Signal links to enhance your Monad experience",
+    "permissions": [
+        "activeTab"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.twitter.com/*",
+                "*://*.x.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+}
