@@ -2,9 +2,12 @@
     "manifest_version": 3,
     "name": "Monorail Signals",
     "version": "0.1",
-    "description": "Interprets Monorail Signal links to enhance your Monad experience",
+    "description": "Interprets Monorail Signal links to enhance your Monad experience on X",
     "permissions": [
         "activeTab"
+    ],
+    "host_permissions": [
+        "https://signals.monorail.xyz/*"
     ],
     "content_scripts": [
         {
@@ -13,6 +16,8 @@
                 "*://*.x.com/*"
             ],
             "js": [
+                "lib/helpers.js",
+                "lib/signals.js",
                 "content.js"
             ]
         }
