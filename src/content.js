@@ -45,22 +45,21 @@ async function handleTweetDetection(tweetTextDiv, matchedKeywords) {
         const loadingDiv = window.createLoadingDiv(xDisplayMode);
         tweetTextDiv.appendChild(loadingDiv);
 
-        // Fetch the data
-        // const testnetData = await checkTestnetStatus();
-
-        // if (testnetData && testnetData.testnet === true && testnetData.html) {
-        //     // Replace loading div with actual content
-        //     const contentDiv = document.createElement('div');
-        //     contentDiv.className = 'monad-info';
-        //     contentDiv.innerHTML = testnetData.html;
-        //     loadingDiv.replaceWith(contentDiv);
-
-        //     // Add any event listeners or dynamic behavior needed for the injected HTML
-        //     setupInjectedContent(contentDiv);
-        // } else {
-        //     // If the API call fails or returns testnet: false, remove the loading div
-        //     loadingDiv.remove();
-        // }
+        // Fetch the data for the matched keyworks
+        const content = await window.fetchNetworkContent(matchedKeywords, xDisplayMode);
+        console.log("content", content);
+        if (content) {
+            // Replace loading div with actual content
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'signals-info';
+            contentDiv.innerHTML = content;
+            loadingDiv.replaceWith(contentDiv);
+            // Add any event listeners or dynamic behavior needed for the injected HTML
+            // setupInjectedContent(contentDiv);
+        } else {
+            // Remove loading div if there was an error
+            loadingDiv.remove();
+        }
     }
 }
 

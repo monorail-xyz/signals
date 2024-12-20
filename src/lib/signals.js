@@ -10,10 +10,7 @@ const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 window.fetchNetworkSignals = async function () {
     // If cache is valid, return cached signals
     if (cachedSignals && lastFetchTime && (Date.now() - lastFetchTime < CACHE_DURATION)) {
-        console.log("RETURN CACHE");
         return cachedSignals;
-    } else {
-        console.log("FETCH NO CACHE");
     }
 
     try {
@@ -34,5 +31,23 @@ window.fetchNetworkSignals = async function () {
             mandatory: ["monad", "testnet"],
             optional: []
         };
+    }
+}
+
+/**
+ * Fetch the content for the network signals
+ * 
+ * @returns The HTML content to use
+ */
+window.fetchNetworkContent = async function (keywords, xmode) {
+    try {
+        const response = await fetch(`https://signals.monorail.xyz/v1/network/content?keywords=${encodeURIComponent(keywords)}&x-mode=${encodeURIComponent(xmode)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.text();;
+    } catch (error) {
+        console.error('Error fetching content:', error);
+        return false;
     }
 }
