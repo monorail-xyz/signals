@@ -11,6 +11,8 @@ const observer = new MutationObserver(async (mutations) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
                 const articles = node.getElementsByTagName('article');
                 for (const article of articles) {
+                    // This is most likely not the *best* way to get the tweet text, but it seems to have
+                    // been there for at least 4 years and seem unlikely to change soon
                     const tweetTextDiv = article.querySelector('[data-testid="tweetText"]');
                     if (tweetTextDiv?.textContent) {
                         const tweetText = tweetTextDiv.textContent.toLowerCase();
